@@ -24,7 +24,7 @@ export class WordsPage {
   }
 
   ionViewDidEnter(){
-    setTimeout(this.showPrompt(), 4000);
+    this.showPrompt();
   }
 
   ionViewDidLoad() {
@@ -39,13 +39,13 @@ export class WordsPage {
       this.all = data[this.words].word;
       data.splice(this.words, 1);
       this.len = data.length;
-
       console.log(this.all)
     });
 
   }
 
   showPrompt() {
+
     let prompt = this.alertCtrl.create({
       enableBackdropDismiss: false,
       cssClass: 'alertcs',
@@ -71,7 +71,10 @@ export class WordsPage {
           }
       ]
     });
-    prompt.present();
+    setTimeout(function () {
+      prompt.present();
+    }, 1000);
+
   }
 
 

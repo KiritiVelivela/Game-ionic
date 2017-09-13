@@ -19,7 +19,7 @@ export class WordsProvider {
 
     return new Promise(resolve => {
 
-      this.http.get('http://localhost:3333/words')
+      this.http.get('https://game-nodejs.appspot.com/words')
         .map(res => res.json())
         .subscribe(data => {
           this.data = data;

@@ -1,9 +1,9 @@
 import {Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {AlertController, NavController, NavParams} from 'ionic-angular';
 import {WordsPage} from "../words/words";
 
 
-@IonicPage()
+
 @Component({
   selector: 'page-correct',
   templateUrl: 'correct.html',
@@ -13,16 +13,31 @@ export class CorrectPage  {
   correct: string =  this.navParams.get('word');
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
     console.log(this.correct);
   }
 
-ionViewDidEnter() {
-    setTimeout( this.moveOn(), 6000);
-}
+  ionViewWillEnter() {
+    this.moveOn();
+  }
 
-moveOn(){
-    this.navCtrl.push(WordsPage, this.correct);
-}
+
+  moveOn(){
+      let alert = this.alertCtrl.create({
+        title: 'Memory Game',
+        subTitle: 'Get ready for the next word...!!',
+        buttons: [
+          {
+            text: 'Lets Go!',
+            handler: data => {
+              this.navCtrl.push(WordsPage, this.correct);
+            }
+          }
+        ]
+      });
+      setTimeout(function () {
+        alert.present();
+      }, 2000);
+  }
 
 }

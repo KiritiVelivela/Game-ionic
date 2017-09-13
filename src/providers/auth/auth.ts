@@ -41,7 +41,7 @@ export class AuthProvider {
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
     return new Promise(resolve => {
-      this.http.post('http://localhost:3333/authenticate', creds, {headers: headers}).subscribe(data => {
+      this.http.post('https://game-nodejs.appspot.com/authenticate', creds, {headers: headers}).subscribe(data => {
         if(data.json().success){
           this.storeUserCredentials(data.json().token);
           resolve(true);
@@ -57,7 +57,7 @@ export class AuthProvider {
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
     return new Promise(resolve => {
-      this.http.post('http://localhost:3333/adduser', creds, {headers: headers}).subscribe(data => {
+      this.http.post('https://game-nodejs.appspot.com/adduser', creds, {headers: headers}).subscribe(data => {
         if(data.json().success){
           resolve(true);
         }
@@ -73,7 +73,7 @@ export class AuthProvider {
       this.loadUserCredentials();
       console.log(this.AuthToken);
       headers.append('Authorization', 'Bearer ' +this.AuthToken);
-      this.http.get('http://localhost:3333/getinfo', {headers: headers}).subscribe(data => {
+      this.http.get('https://game-nodejs.appspot.com/getinfo', {headers: headers}).subscribe(data => {
         if(data.json().success)
           resolve(data.json());
         else

@@ -8,7 +8,7 @@ import {CorrectPage} from "../correct/correct";
   templateUrl: 'wrong.html',
 })
 export class WrongPage {
-
+  public edited = true;
   wrong: string = this.navParams.data;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
@@ -16,7 +16,18 @@ export class WrongPage {
   }
 
   ionViewDidEnter() {
-    setTimeout(this.tryAgain(), 6000);
+    this.tryAgain();
+    this.saveTodos();
+  }
+
+  saveTodos(): void {
+    //show box msg
+    this.edited = false;
+    //wait 3 Seconds and hide
+    setTimeout(function() {
+      this.edited = true;
+      console.log(this.edited);
+    }.bind(this), 2000);
   }
 
   tryAgain() {
@@ -41,12 +52,14 @@ export class WrongPage {
                 this.navCtrl.push(CorrectPage, data)
               }
               else {
-                this.navCtrl.push(WrongPage, data); }
+                this.navCtrl.push(WrongPage, this.wrong); }
             }
           }
         ]
       });
-      prompt.present();
+      setTimeout(function () {
+        prompt.present();
+      }, 3000);
 
   }
 
